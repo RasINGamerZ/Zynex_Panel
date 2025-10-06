@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+<head>
+    <title>Zynex Panel — powered by Hydra and MrDrayNoX</title>
+  <%- include('../components/head') %>
+</head>
+<body class="h-screen w-screen flex items-center justify-center font-space text-white relative">
+  <!-- Background layers -->
+  <div class="fixed inset-0 bg-cover bg-center bg-no-repeat z-[-2]" style="background-image: url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1920&q=80')"></div>
+  <div class="fixed inset-0 bg-black/70 z-[-1]"></div>
+  <div class="fixed bottom-0 left-0 w-full h-1/2 z-[-1]" style="background: linear-gradient(to bottom, rgba(0,0,0,0) 50%, rgba(0,0,0,0.7) 80%, rgba(0,0,0,0.9) 100%);"></div>
+
+  <!-- Card -->
+  <div class="bg-black/40 backdrop-blur-md border border-white/10 rounded-xl p-10 w-full max-w-md shadow-xl transition-all duration-300">
+    <div class="flex justify-center mb-8">
+        <h1 class="text-4xl font-extrabold text-white font-space"><%= name %></h1>
+    </div>
+
+    <h2 class="text-center text-3xl font-bold mb-2 text-white font-space tracking-tight">2-Factor Authentication</h2>
+    <p class="text-center text-sm text-gray-300 mb-8 font-space">
+      Please enter the 6-digit code from your authenticator app.
+    </p>
+
+    <form action="/2fa" method="POST" class="space-y-6">
+      <div class="space-y-2">
+        <label for="token" class="text-sm font-medium text-gray-300 ml-1 font-space">Code</label>
+        <div class="relative">
+          <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-white/50" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M2 5a2 2 0 012-2h12a2 2 0 012 2v10a2 2 0 01-2 2H4a2 2 0 01-2-2V5zm2 0l6 5 6-5H4z" clip-rule="evenodd" />
+            </svg>
+          </div>
+          <input placeholder="000000" type="text" id="token" name="token" required
+            class="w-full p-3 pl-10 bg-black/30 border border-white/20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-white/30 transition-all duration-200 font-space" />
+        </div>
+      </div>
+
+      <% if (req.query.err && req.query.err == "InvalidAuthCode") { %>
+        <span class="text-amber-400 pt-2 block text-sm font-space">Invalid auth code.</span>
+      <% } %>
+
+      <button type="submit"
+        class="w-full py-3 rounded-lg bg-white text-black font-semibold transition-all duration-300 hover:shadow-[0_0_20px_rgba(255,255,255,0.4)] hover:-translate-y-0.5 font-space">
+        Submit
+      </button>
+    </form>
+  </div>
+
+<!-- Branding footer injected by assistant -->
+<style>
+/* Simple footer style (black + blue + white theme friendly) */
+#zynex-branding-footer{position:relative; padding:12px 16px; text-align:center; font-family:Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial; background:transparent; color:#ffffff; z-index:9999; font-size:13px;}
+#zynex-branding-footer a{color:#78bfff; text-decoration:none; font-weight:600;}
+</style>
+<div id="zynex-branding-footer">Zynex Panel — powered by Hydra and MrDrayNoX</div>
+<script>
+// Ensure document title reflects branding
+try{
+    if (!document.title || document.title.toLowerCase().includes('panel')) {
+        document.title = "Zynex Panel — powered by Hydra and MrDrayNoX";
+    }
+}catch(e){console && console.warn(e)}
+</script>
+<!-- End branding footer -->
+</body>
+</html>

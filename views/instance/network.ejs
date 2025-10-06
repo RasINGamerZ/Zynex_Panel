@@ -1,0 +1,51 @@
+<%- include('../components/template') %>
+<main id="content">
+    <%- include('../components/instance') %>
+    <div class="bg-white/5 rounded-xl p-6 mt-8">
+      <div class="flex justify-between items-center mb-6">
+          <div>
+              <h2 class="text-xl font-semibold text-white">Network Allocations</h2>
+              <p class="text-gray-400 text-sm mt-1">Manage your server's network interfaces and ports</p>
+          </div> 
+      </div>
+         <tbody>
+           <% ports.forEach(function(port) { %>
+            <div class="flex items-center space-x-2">
+               <span class="text-white font-medium"><%= port.port %>:<%= port.internal %></span>
+               <% if (port.primary == true) { %>
+                   <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                       Primary
+                   </span>
+                   <% } %>
+           </div>
+           <div class="text-sm text-gray-400">
+               <span class="inline-flex items-center">
+                   <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" viewBox="0 0 20 20" fill="currentColor">
+                       <path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+                   </svg>
+                   Internal address <%= instance.Node.address %>, port <%= port.port %>
+               </span>
+           </div>
+            </tbody>
+         </table>
+       </div>
+           <% }); %>     
+</main>
+<%- include('../components/footer') %>
+
+<!-- Branding footer injected by assistant -->
+<style>
+/* Simple footer style (black + blue + white theme friendly) */
+#zynex-branding-footer{position:relative; padding:12px 16px; text-align:center; font-family:Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial; background:transparent; color:#ffffff; z-index:9999; font-size:13px;}
+#zynex-branding-footer a{color:#78bfff; text-decoration:none; font-weight:600;}
+</style>
+<div id="zynex-branding-footer">Zynex Panel — powered by Hydra and MrDrayNoX</div>
+<script>
+// Ensure document title reflects branding
+try{
+    if (!document.title || document.title.toLowerCase().includes('panel')) {
+        document.title = "Zynex Panel — powered by Hydra and MrDrayNoX";
+    }
+}catch(e){console && console.warn(e)}
+</script>
+<!-- End branding footer -->
